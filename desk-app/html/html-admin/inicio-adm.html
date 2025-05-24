@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bienvenido</title>
+    <link rel="stylesheet" href="../assets/css/inicio.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/img/logo.png" alt="Logo" class="logo">
+        </div>
+        <ul class="sidebar-menu">
+            <li class="active"><a href="inicio-adm.html">Inicio</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="mascotas.html">Mascotas</a></li>
+            <li><a href="analitics.html">Analiticas</a></li>
+            <li><a href="rol.html">Administrar empleados</a></li>
+            <li><a href="tareas.html">Tareas</a></li>
+
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Panel de control</h1>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <img id="theme-icon" src="../assets/img/moon.png" alt="Modo Oscuro">
+                </button>
+                <div class="profile">
+                    <img src="../assets/img/perfil.png" alt="Perfil">
+                    <div class="dropdown">
+                        <p>Configuración</p>
+                        <p onclick="cerrarSesion()">Cerrar Sesión</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="welcome-container">
+            <h1>Bienvenido al Sistema de Gestión</h1>
+            <p>Esta es la aplicaciónd e empleados. Desde aquí, segun tu rol, podrás administrar diversas cosas como ver los usuarios registrados sus mascotas asociadas, las analiticas de la aplicación y también un listrado de los empleados de la empresa </p>
+            <p>Utiliza el menú lateral para navegar entre las diferentes secciones de la aplicación.</p>
+        </div>
+
+
+        <div class="quick-access">
+            <a href="usuarios.html" class="access-card">
+                <div class="card-content">
+                    <img src="../assets/img/nueva-cuenta.png" alt="Usuarios" class="card-icon">
+                    <h3 class="card-title">Usuarios</h3>
+                    <p class="card-description">Editar usuarios</p>
+                </div>
+            </a>
+            <a href="mascotas.html" class="access-card">
+                <div class="card-content">
+                    <img src="../assets/img/icon.png" alt="Mascotas" class="card-icon">
+                    <h3 class="card-title">Mascotas</h3>
+                    <p class="card-description">Editar mascotas</p>
+                </div>
+            </a>
+            <a href="analitics.html" class="access-card">
+                <div class="card-content">
+                    <img src="../assets/img/analitica.png" alt="Mascotas" class="card-icon">
+                    <h3 class="card-title">Analiticas</h3>
+                    <p class="card-description">Ver analíticas</p>
+                </div>
+            </a>
+            <a href="rol.html" class="access-card">
+                <div class="card-content">
+                    <img src="../assets/img/gestion-de-usuarios.png" alt="Mascotas" class="card-icon">
+                    <h3 class="card-title">Roles</h3>
+                    <p class="card-description">Administrar Roles</p>
+                </div>
+            </a>
+        </div>
+        <div class="column-links">
+            <div class="column">
+                <p><img src="../assets/img/conflu.png" class="link-icon" > <a href="https://www.atlassian.com/es/software/confluence?gclsrc=aw.ds&&campaign=19190484127&adgroup=149977815531&targetid=kwd-22737151&matchtype=e&network=g&device=c&device_model=&creative=640903942294&keyword=confluence&placement=&target=&ds_eid=700000001542923&ds_e1=GOOGLE&gad_source=1&gad_campaignid=19190484127&gclid=CjwKCAjw_pDBBhBMEiwAmY02NpJtp-B-E6G7_glywYrNVaFAxbEmFeK6Sj_bTh1F1OAuA1LLAST09RoC5p8QAvD_BwE" target="_blank" rel="noopener noreferrer">Confluence</a></p>
+                <p><img src="../assets/img/trello.png" class="link-icon"> <a href="https://trello.com/" target="_blank" rel="noopener noreferrer">Trello</a></p>
+                <p><img src="../assets/img/nube.png" class="link-icon"> <a href="https://www.microsoft.com/es-es/microsoft-365/sharepoint/" target="_blank" rel="noopener noreferrer">Nube</a></p>
+                <p><img src="../assets/img/figma.png" class="link-icon"> <a href="https://www.figma.com/files/" target="_blank" rel="noopener noreferrer">Figma</a></p>
+            </div>
+            <div class="column">
+                <p><img src="../assets/img/correo.png" class="link-icon"> <a href="https://outlook.office.com" target="_blank" rel="noopener noreferrer">Correo de la empresa</a></p>
+                <p><img src="../assets/img/slack.avif" class="link-icon"> <a href="https://slack.com/signin#/signin" target="_blank" rel="noopener noreferrer">Slack de la empresa</a></p>
+                <p><img src="../assets/img/supabase.png" class="link-icon"> <a href="https://supabase.com/dashboard" target="_blank" rel="noopener noreferrer">SupaBase</a></p>
+            </div>
+            <div class="column">
+                <p><img src="../assets/img/fastapi.svg" class="link-icon"> <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noopener noreferrer">FastAPI</a></p>
+                <p><img src="../assets/img/wordpress.png" class="link-icon"> <a href="https://wordpress.com/es/" target="_blank" rel="noopener noreferrer">WordPress</a></p>
+                <p><img src="../assets/img/teams.png" class="link-icon"> <a href="https://teams.microsoft.com/" target="_blank" rel="noopener noreferrer">Teams</a></p>
+            </div>
+        </div>
+
+    </div>
+
+    <script>
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "../assets/img/sun.png";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "../assets/img/moon.png";
+            }
+        }
+
+        function cerrarSesion() {
+            window.location.href = "../index.html";
+        }
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem("theme");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark-mode");
+                themeIcon.src = "../assets/img/sun.png";
+            }
+
+            // Marcar como activo el elemento del menú correspondiente a la página actual
+            const currentPage = location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            
+            menuItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        };
+    </script>
+</body>
+</html>

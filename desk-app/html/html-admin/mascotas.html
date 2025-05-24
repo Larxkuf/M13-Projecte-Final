@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Mascotas</title>
+    <link rel="stylesheet" href="../assets/css/mascotas.css">
+</head>
+<body>
+
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/img/logo.png" alt="Logo Veterinaria">
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="inicio-adm.html">Inicio</a></li>
+            <li><a href="usuarios.html">Usuarios</a></li>
+            <li class="active"><a href="mascotas.html">Mascotas</a></li>
+            <li><a href="analitics.html">Analíticas</a></li> 
+            <li><a href="rol.html">Administrar roles</a></li>
+            <li><a href="tareas.html">Tareas</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Gestión de Mascotas</h1>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <img id="theme-icon" src="../assets/img/moon.png" alt="Modo Oscuro">
+                </button>
+                <div class="profile">
+                    <img src="../assets/img/perfil.png" alt="Perfil">
+                    <div class="dropdown">
+                        <p>Configuración</p>
+                        <p onclick="cerrarSesion()">Cerrar Sesión</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pets-container">
+            <div class="table-header">
+                <div class="search-box">
+                    <input type="text" id="searchInput" placeholder="Buscar mascotas...">
+                    <button class="button" id="searchButton">Buscar</button>
+                </div>
+                <button class="button success" onclick="openModal()">+ Añadir Mascota</button>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Nombre Mascota</th>
+                        <th>ID Usuario</th>
+                        <th>Tipo</th>
+                        <th>Fecha Creación</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody id="petsTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="petModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Añadir Nueva Mascota</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="petForm">
+                <div class="form-group">
+                    <label for="petSpecies">Tipo de Mascota</label>
+                    <select id="petSpecies" required>
+                        <option value="">Seleccionar tipo...</option>
+                        <option value="1">Tipo 1</option>
+                        <option value="2">Tipo 2</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="button warning" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="button success">Guardar Mascota</button>
+                </div>
+            </form>
+
+
+        </div>
+    </div>
+
+    <div class="modal" id="qrModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Código QR de la Mascota</h3>
+                <button class="close-btn" onclick="closeQRModal()">&times;</button>
+            </div>
+            <div class="qr-container">
+                <img src="../assets/img/qr-sample.png" alt="Código QR" class="qr-image" id="qrImage">
+                <p id="qrPetName"></p>
+                <p id="qrPetOwner"></p>
+                <div class="qr-code" id="qrCodeValue"></div>
+                <div class="qr-actions">
+                    <button class="button" onclick="printQR()">Imprimir QR</button>
+                    <button class="button success" onclick="downloadQR()">Descargar QR</button>
+                    <button class="button warning" onclick="changeQR()">Cambiar QR</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script type="module" src="../assets/js/aifasdsdas.js"></script>
+    <script type="module" src="../assets/js/mascotas.js"></script>
+    <script>
+        // Funciones globales necesarias
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "../assets/img/sun.png";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "../assets/img/moon.png";
+            }
+        }
+
+        function cerrarSesion() {
+            window.location.href = "../index.html";
+        }
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem("theme");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark-mode");
+                themeIcon.src = "../assets/img/sun.png";
+            }
+
+            const currentPage = location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            
+            menuItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        };
+    </script>
+
+</body>
+</html>

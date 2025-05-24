@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión de Roles</title>
+  <link rel="stylesheet" href="../assets/css/roles.css"/>
+</head>
+<body>
+
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <img src="../assets/img/logo.png" alt="Logo" />
+    </div>
+    <ul class="sidebar-menu">
+      <li><a href="inicio-adm.html">Inicio</a></li>
+      <li><a href="usuarios.html">Usuarios</a></li>
+      <li><a href="mascotas.html">Mascotas</a></li>
+      <li><a href="analitics.html">Analíticas</a></li>
+      <li class="active"><a href="rol.html">Administrar roles</a></li>
+      <li><a href="tareas.html">Tareas</a></li>
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="header">
+      <h1 class="page-title">Gestión de Roles</h1>
+      <div class="header-controls">
+        <button class="theme-toggle" onclick="toggleTheme()">
+          <img id="theme-icon" src="../assets/img/moon.png" alt="Modo Oscuro"/>
+        </button>
+        <div class="profile">
+          <img src="../assets/img/perfil.png" alt="Perfil"/>
+          <div class="dropdown">
+            <p>Configuración</p>
+            <p onclick="cerrarSesion()">Cerrar Sesión</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <p style="margin-bottom: 1rem; font-size: 1.1rem; margin-right: 200px;  margin-top: -20px;">
+      En esta sección puedes consultar los empleados actuales, assignar roles disponibles y ver los permisos asociados a cada rol. 
+      Desde la pantalla principal podrás acceder al listado de los empleados, donde podrás comprobar su actividad y administrar roles, 
+      pudiendo editarlos; abajo podrás tener acceso a los diferentes roles y ver que actividades pueden realizar, así como ver a lo 
+      que pueden acceder.
+    </p>
+    
+    <div class="roles-container">
+      <div class="table-header">
+          <h2>Listado de Empleados</h2>
+          <button class="button" onclick="window.location.href='registro.html'">+ Añadir Empleado</button>
+      </div>
+      <table>
+        <thead>
+          <tr>
+            <th>Nombre</th>
+            <th>Correo</th>
+            <th>Rol</th>
+            <th>ID Rol</th>
+            <th>Acciones</th>
+          </tr>
+        </thead>
+        <tbody id="employeeTableBody"></tbody>
+      </table>
+
+      <h2>Roles Disponibles</h2>
+      <div id="rolesButtons" class="roles-buttons"></div>
+
+        <div id="roleModal" class="modal" style="display: none;">
+          <div class="modal-content">
+              <span class="close-button" onclick="closeRoleModal()">&times;</span>
+              <h3>Detalles del Rol</h3>
+              <p><strong>Descripción:</strong> <span id="roleDescription"></span></p>
+              <p><strong>Permisos:</strong> <span id="rolePermissions"></span></p>
+          </div>
+        </div>
+    </div>
+  </div>
+
+  
+  <script type="module" src="../assets/js/roles.js"></script>
+  <script>
+    function toggleTheme() {
+      document.body.classList.toggle("dark-mode");
+      const themeIcon = document.getElementById("theme-icon");
+      if (document.body.classList.contains("dark-mode")) {
+        localStorage.setItem("theme", "dark");
+        themeIcon.src = "../assets/img/sun.png";
+      } else {
+        localStorage.setItem("theme", "light");
+        themeIcon.src = "../assets/img/moon.png";
+      }
+    }
+
+    function cerrarSesion() {
+      window.location.href = "../index.html";
+    }
+
+    window.onload = function () {
+      const savedTheme = localStorage.getItem("theme");
+      const themeIcon = document.getElementById("theme-icon");
+
+      if (savedTheme === "dark") {
+        document.body.classList.add("dark-mode");
+        themeIcon.src = "../assets/img/sun.png";
+      }
+
+      const currentPage = location.pathname.split("/").pop();
+      const menuItems = document.querySelectorAll(".sidebar-menu li");
+      menuItems.forEach((item) => {
+        const link = item.querySelector("a");
+        if (link.getAttribute("href") === currentPage) {
+          item.classList.add("active");
+        } else {
+          item.classList.remove("active");
+        }
+      });
+    };
+
+    document.addEventListener("DOMContentLoaded", () => { 
+      fetchEmployees();
+      fetchRoles();
+    });
+  
+  </script>
+</body>
+</html>

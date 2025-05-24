@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestor de Usuarios</title>
+    <link rel="stylesheet" href="../assets/css/usuarios.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <img src="../assets/img/logo.png" alt="Logo">
+        </div>
+        <ul class="sidebar-menu">
+            <li><a href="inicio-adm.html">Inicio</a></li>
+            <li class="active"><a href="usuarios.html">Usuarios</a></li>
+            <li><a href="mascotas.html">Mascotas</a></li>
+            <li><a href="analitics.html">Analíticas</a></li> 
+            <li><a href="rol.html">Administrar roles</a></li>
+            <li><a href="tareas.html">Tareas</a></li>
+        </ul>
+    </div>
+
+    <div class="main-content">
+        <div class="header">
+            <h1 class="page-title">Gestión de Usuarios</h1>
+            <div class="header-controls">
+                <button class="theme-toggle" onclick="toggleTheme()">
+                    <img id="theme-icon" src="../assets/img/moon.png" alt="Modo Oscuro">
+                </button>
+                <div class="profile">
+                    <img src="../assets/img/perfil.png" alt="Perfil">
+                    <div class="dropdown">
+                        <p>Configuración</p>
+                        <p onclick="cerrarSesion()">Cerrar Sesión</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="users-container">
+            <div class="table-header">
+                <div class="search-box">
+                    <input type="text" placeholder="Buscar usuarios...">
+                    <button class="button">Buscar</button>
+                </div>
+            </div>
+
+            <table>
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>Email</th>
+                        <th>Contraseña</th>
+                        <th>Estado de inactividad</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="modal" id="userModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 class="modal-title">Añadir Nuevo Usuario</h3>
+                <button class="close-btn" onclick="closeModal()">&times;</button>
+            </div>
+            <form id="userForm">
+                <div class="form-group">
+                    <label for="userName">Username</label>
+                    <input type="text" id="userName" required>
+                </div>
+                <div class="form-group">
+                    <label for="userEmail">Email</label>
+                    <input type="email" id="userEmail" required>
+                </div>
+                <div class="form-group">
+                    <label for="userPhone">Teléfono</label>
+                    <input type="tel" id="userPhone">
+                </div>
+                <div class="form-group">
+                    <label for="userBirthday">Cumpleaños</label>
+                    <input type="date" id="userBirthday">
+                </div>
+                <div class="form-group">
+                    <label for="userBalance">Balance (€)</label>
+                    <input type="number" id="userBalance" step="0.01" value="0">
+                </div>
+                <div class="form-group">
+                    <label for="userPassword">Contraseña</label>
+                    <input type="password" id="userPassword">
+                </div>
+                <div class="form-group">
+                    <label for="userStatus">Estado</label>
+                    <select id="userStatus" required>
+                        <option value="active" selected>Activo</option>
+                        <option value="inactive">Inactivo</option>
+                    </select>
+                </div>
+                <div class="form-actions">
+                    <button type="button" class="button warning" onclick="closeModal()">Cancelar</button>
+                    <button type="submit" class="button success">Guardar Usuario</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="module" src="../assets/js/usuarios.js"></script>
+    <script>
+        // Funciones globales necesarias
+        function toggleTheme() {
+            document.body.classList.toggle("dark-mode");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (document.body.classList.contains("dark-mode")) {
+                localStorage.setItem("theme", "dark");
+                themeIcon.src = "../assets/img/sun.png";
+            } else {
+                localStorage.setItem("theme", "light");
+                themeIcon.src = "../assets/img/moon.png";
+            }
+        }
+
+        function cerrarSesion() {
+            window.location.href = "index.html";
+        }
+
+        window.onload = function() {
+            const savedTheme = localStorage.getItem("theme");
+            const themeIcon = document.getElementById("theme-icon");
+
+            if (savedTheme === "dark") {
+                document.body.classList.add("dark-mode");
+                themeIcon.src = "../assets/img/sun.png";
+            }
+
+            const currentPage = location.pathname.split('/').pop();
+            const menuItems = document.querySelectorAll('.sidebar-menu li');
+            
+            menuItems.forEach(item => {
+                const link = item.querySelector('a');
+                if (link.getAttribute('href') === currentPage) {
+                    item.classList.add('active');
+                } else {
+                    item.classList.remove('active');
+                }
+            });
+        };
+    </script>
+</body>
+</html>
